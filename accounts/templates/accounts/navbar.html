@@ -1,0 +1,73 @@
+{% load static %}
+<nav class="navbar fixed-top navbar-dark bg-dark navbar-expand-md  " >
+	{% if not user.is_authenticated    %}
+		<a class="navbar-brand" href="#" >
+			<strong style=" line-height: 20px; font-size: 40px ; color : deepskyblue ;">S</strong>
+			<strong style=" line-height: 20px; font-size: 40px ; color : grey ;">t</strong>
+			<strong style=" line-height: 20px; font-size: 40px ; color : lightblue ;">o</strong>
+			<strong style=" line-height: 20px; font-size: 40px ; color : lightgrey ;">r</strong>
+			<strong style=" line-height: 20px; font-size: 40px ; color : darkgrey; ">e</strong>
+		</a>
+	{% elif not user.customer.pic  %}
+
+			<div class="navbar-brand"> 
+				<img width="40px" src="{% static 'images/user.svg' %}" style="background: darkgrey; ">								
+			</div>
+	{% else %}
+			<div class="navbar-brand"> 
+				<img width="40px" src="{{ user.customer.pic.url }}" style="background: darkgrey; ">								
+			</div>
+	{% endif %}				
+	
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+	data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+	aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav">
+{% if user.is_staff %}
+			<li class="nav-item active">
+				<a class="nav-link" href="{% url 'home' %}">Dashboard</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'products' %}">
+					Products
+				</a>
+			</li>
+		</ul>
+</div>
+{% else %}
+		{% if user.groups.first.name == 'customers'%}
+			<li class="nav-item 
+				{% if title != 'Store' %}
+					active 
+				{% endif %}
+				">
+				<a class="nav-link" href="{% url 'user-page' request.user.id %}">
+					Profile
+				</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link
+					{% if title == 'Store' %}
+						active 
+					{% endif %}" href="{% url 'user-store' %}">Shopping</span></a>
+			</li>
+	{% endif %}	
+	</ul>
+</div>
+{% endif %}
+	
+{% if user.is_authenticated %}
+
+	<span class="text-white mr-4">Hello , {{user}}</span>
+	<span><a href="{% url 'logout' %}">Logout</a></span>
+
+{% else %}
+
+	<span class="text-white mr-4 ">Welcome , Please <a  href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a></span>
+
+{% endif %}
+
+</nav>	

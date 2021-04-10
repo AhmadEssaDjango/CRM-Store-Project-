@@ -1,0 +1,126 @@
+{% extends 'accounts/main.html' %}
+
+{% load static %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block content %}
+	<div class="container p-4">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+						<button class="btn btn-lg btn-outline-dark " id="cat1" onclick="show('cat1')" ><strong>Indoor</strong></button>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+						<button class="btn btn-lg btn-outline-dark" id="cat2" onclick="show('cat2')"><strong>Out Door </strong></button>
+				</div>
+			</div>
+		</div>
+		
+			<div 
+				class="text-center total"
+				 
+			>
+			<strong>+{{total }}</strong>Product</div>
+		</div>
+		<div id="cat1Products" >
+		<div class="row">
+				{% for product in indoor%}
+					<div class="col-md-4">
+						<div class="card mt-3">
+							<div class="card-body">
+								<img class="product__image"  src="{{ product.photo_url |default_if_none:'#' }}">
+								<hr>
+								<p class="card-text">
+									<strong>{{product.name}}</strong>
+								</p>
+								<p class="card-text" style="font-size:14px ;height: 5vh; overflow-y: auto;">
+									{{product.description}}
+								</p>
+								<p class="card-text">
+									Price : <strong>${{product.price}}</strong>
+								</p>
+							</div>
+							<div class="card-footer bg-grey text-dark">
+								<div class="row">
+									<div class="col-md-5">
+										<button class="btn btn-sm btn-outline-primary"
+										onclick="addToCart('{{ product.id }}')" 
+										>Add to cart</button>
+									</div>
+									<div class="col-md-7 ">
+										<button class="btn btn-sm btn-outline-info ">Like</button>
+										<button class="btn btn-sm btn-outline-danger ">Dislike</button>
+									</div>
+								</div>
+
+								<div class="row mt-2">
+									<div class="col-md-5">
+										<div class="card-text" style="font-size: 12px; "> Ordered <strong>{{product.ordered}}</strong> 	times 	</div>
+									</div>
+									<div class="col-md-7">
+										{%  for tag in product.tags.all %}
+											<a class="btn btn-sm btn-outline-dark mt-1" href="#">{{tag.name}}</a>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{%endfor%}
+			</div>
+		</div>
+	
+		<div id="cat2Products" >
+			<div class="row" >
+				{% for product in outdoor%}
+					<div class="col-md-4 ">
+						<div class="card mt-2">
+							<div class="card-body">
+								<img  class="product__image" src="{{ product.photo_url|default_if_none:'#' }}">
+								<hr>
+								<p class="card-text">
+									<strong>{{product.name}}</strong>
+								</p>
+								<p class="card-text" style="font-size:14px ;height: 5vh; overflow-y: auto;">
+									{{product.description}}
+								</p>
+								<p class="card-text">
+									Price : <strong>${{product.price}}</strong>
+								</p>
+							</div>
+							<div class="card-footer bg-grey text-dark">
+								<div class="row">
+									<div class="col-md-6">
+										<script type="text/javascript">
+											
+										</script>
+										<button class="btn btn-sm btn-outline-primary" onclick="addToCart('{{ product.id }}')">Add to cart</button>
+									</div>
+									<div class="col-md-6 ">
+										<button class="btn btn-sm btn-outline-info" >Like</button>
+										<button class="btn btn-sm btn-outline-danger ">Dislike</button>
+									</div>
+								</div>
+
+								<div class="row mt-2">
+									<div class="col-md-6">
+										<div class="card-text" style="font-size: 12px; "> Ordered <strong>{{product.ordered}}</strong> 	times 	</div>
+									</div>
+									<div class="col-md-6">
+										{%  for tag in product.tags.all %}
+											<a class="btn btn-sm btn-outline-dark mt-1" href="#">{{tag.name}}</a>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		
+
+{% endblock content %} 

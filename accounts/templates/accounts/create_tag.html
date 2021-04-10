@@ -1,0 +1,28 @@
+{% extends 'accounts/main.html' %}
+
+{% load static %}
+
+
+{% block title %} Add Tag {% endblock %}
+
+
+
+{% block content %} 
+	<div class="form-group text-center">
+		<form method="POST" action="{% url 'create_tag' %}">
+			{% csrf_token %}
+			{{form.as_p}}
+			<div class="form-group">	
+				<button 
+					type="submit" 
+					class="btn btn-sm btn-primary" 
+					class="form-control"  
+					style="width:100%"
+					 
+				>
+						Add
+				</button>	
+			</div>
+		</form>
+	</div>
+{% endblock content %}

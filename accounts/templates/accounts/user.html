@@ -1,0 +1,73 @@
+{% extends 'accounts/main.html' %}
+
+{% load static %}
+
+{% block title %}
+	{{title}}
+{% endblock title %}
+
+{% block content  %}
+	{% include 'accounts/status.html' %}
+	<div class="card">
+		<div class="card-header">
+			<div class="row">
+				<div class="col-md-3">
+					<h4 class="card-title">
+						User Information : 
+					</h4>
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-6">
+			<div class="card-text">
+				<span >
+					<strong>Username : </strong>
+					<i>{{user.customer.name}}</i>
+				</span>
+
+			</div>	
+			<hr>
+			<div class="card-text">
+				<span>
+					<strong>Phone : </strong>
+					<i>{{user.customer.phone}}</i>
+				</span>
+			</div>
+			<hr>
+			<div class="card-text">
+				<span>
+					<strong>E-Mail : </strong>
+					<i>{{user.customer.email}}</i>
+				</span>
+			</div>
+			<hr>	
+			<div class="card-text ">
+				<span>
+					<strong >Join Date : </strong>
+					<i>{{user.customer.data_created}}</i>
+				</span>
+			</div>
+			<hr>
+		</div>
+
+			<div class="col-md-6 text-center" >
+				{% if user.customer.pic  %}
+					<img 
+						style="width:45%; border-radius: 50%;" 
+						class="card-img-top " src="{{request.user.customer.pic.url}}"
+					/>
+				{% endif %}	
+					
+			</div>
+
+		</div>	
+	
+</div>
+	<button class="card-footer btn btn-outline-warning text-yellow"><strong>Change</strong></button>
+</div>	
+
+{% endblock content %}

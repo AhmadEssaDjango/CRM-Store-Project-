@@ -1,0 +1,30 @@
+{% extends 'accounts/main.html' %}
+
+
+{% load static %}
+
+{% block content %}
+<div class="card">
+	
+	<form method="post" action="" >
+		<div class="card-body text-center">
+			{% csrf_token %}	
+
+					{% if formset %}
+						{% for form in formset %}
+							{{formset.management_form}}
+							{{form}} 
+							<hr>
+						{% endfor %}
+					{% else %}
+						<center>
+							{{form.as_p}}
+						</center>
+					{% endif %}
+		</div>					
+		<div class="card-footer">	
+			<button  class="btn btn-sm btn-outline-success mt-1" style="width: 100% ;" type="submit" >Submit</button>
+		</div>
+	</form>
+</div>
+{% endblock %}

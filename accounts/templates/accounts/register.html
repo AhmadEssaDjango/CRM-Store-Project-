@@ -1,0 +1,40 @@
+{% extends 'accounts/main.html' %}
+
+{% load static%}
+
+{% block title %} {{'Register'}} {% endblock title %}
+
+{% block content %}
+
+<form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+    <div class="form-group ">
+        <label for="Username">Username</label>
+        <input type="text" class="form-control" name="username" placeholder="Username">
+    </div>
+    <div class="form-group ">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" name="email" placeholder="E-Mail">
+    </div>
+    <div class="form-group ">
+        <label for="Password">Set Password</label>
+        <input type="password" class=" form-control" name="password1" placeholder="Provide Password">
+    </div>
+    <div class="form-group ">
+        <label for="ConfirmPassword">Confirm Password</label>
+        <input type="password" class=" form-control" name="password2" placeholder="Confirm Password">
+    </div>
+    <div class="form-group" >
+        <button type="submit"  class="btn btn-md btn-outline-dark form-control"> Login </button>
+    </div>
+    <div>
+        <span>Already have an</span> 
+            <a href="{% url 'login' %}" class="link">
+                account ?
+        </a>
+    </div>
+
+</form>
+
+
+{% endblock content %}

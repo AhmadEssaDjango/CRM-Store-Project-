@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" 
+		href="{% static '/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" 
+		href="{% static '/css/main.css' %}">
+	<title>CRM - {% block title %} {% endblock title %}</title>
+
+</head>
+<body>
+	{% include 'accounts/navbar.html' %}
+	<div class="container bg-white ">
+		<hr style="margin-top: 80px">
+			{% block content  %}
+			
+			{% endblock %}
+		<hr>
+		{% include 'accounts/footer.html' %}		
+	</div>
+	<script type="text/javascript" src="{% static '/js/jquery.min.js' %} "></script>
+	<script type="text/javascript" src="{% static '/js/bootstrap.min.js' %} "></script>
+	<script type="text/javascript" src="{% static '/js/main.js' %} "></script>
+</body>
+</html>

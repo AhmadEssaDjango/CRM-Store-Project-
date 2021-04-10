@@ -1,0 +1,85 @@
+{% extends 'accounts/main.html' %}
+
+{% load static %}
+
+{% block title %} Create Product {% endblock title %}
+{% block content %} 
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true"> &times; </span>
+            <span class="sr-only" > Close </span>
+        </button>
+        <strong>
+            {{message}}
+        </strong>
+    </div>
+    {% endfor %}
+
+{% if old_product %}
+<form method="POST" action="{% url 'update_product' old_product.id %}" enctype='multipart/form-data'>
+{% else %}
+<form method="POST" action="{% url 'create_product' %}" enctype='multipart/form-data'>
+{% endif %}
+	{% csrf_token %}
+	<div class="form-group">
+		<label for="name">Product Name</label>
+		<input type="text" class="form-control" name="name"  ariadescribedby="productName" placeholder="Type Name..."
+		value="{{form.name.value|default_if_none:''}}">
+	</div>
+
+	<div class="form-group">
+		<label for="Price">Product Price</label>
+		<input type="number" class="form-control" min="0" name="price" placeholder="Price.." required value="{{form.price.value|default_if_none:'0'}}" >
+	</div>
+
+	<div class="form-group" >
+		<select class="custom-select"  name="category" required >
+	 		{% for category in categorys %} 
+	 			{% if category == form.category.value %}	 		
+	 				<option value="{{category}}" selected>{{category}}</option>
+	 			{% else %}
+	 				<option value="{{category}}" >{{category}}</option>
+	 			{%endif%}
+	 		{% endfor %}
+		</select>
+	</div>
+
+	<div class="form-group">
+		<textarea name="description" class="form-control" placeholder="Description" aria-required="true" >{{form.description.value|default_if_none:''}}</textarea>
+	</div>
+
+	<div class="form-group">
+		<div class="card">
+			<div class="card-header">
+				<label for="tags"><h6> Tags : </h6></label>
+			</div>
+			<div class="card-body">
+			<select class="custom-select" name="tags" multiple >
+				
+				{% for tag in tags  %}
+					{% if tag.id in form.tags.value %}
+						<option value="{{tag.id}}" selected>{{tag}} </option>	
+					{% else %}
+						<option value="{{tag.id}}" >{{tag}} </option>							
+					{% endif %}											
+				{% endfor %}
+			</select>	
+			</div>
+			<div class="card-footer" style="">
+				<a  href="{% url 'create_tag' %}"  class="btn btn-sm btn-outline-primary" style="width:100%; height: 100%"> Add Tag </a>
+			</div>
+		</div>	
+	</div>
+
+	{% if old_product %} 
+		<div class="alert alert-info">
+			<i>currently {{old_product.photo}}</i>
+		</div>
+	{% endif %}
+	<input type="file" aria-modal="true" aria-required="true" name="photo" value="{{old_product.photo.url|default_if_none:''}}">
+	
+	<br>
+	<button type="submit" class="btn btn-primary mt-2" style="width:100%" >Submit</button>
+</form> 
+{% endblock content %}
